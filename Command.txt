@@ -1,0 +1,33 @@
+Command
+------------------------------------------------
+sudo apt update && sudo apt upgrade -y
+sudo apt install apache2 -y
+sudo apt update
+sudo apt install php-gd
+sudo systemctl enable apache2
+sudo systemctl start apache2
+sudo apt install php libapache2-mod-php php-mysql -y
+sudo systemctl restart apache2
+sudo su
+cd /var/www/html/
+ls
+rm index.html
+------------------------------------------------
+cd /home/ubuntu/
+ls
+mv BridgingDreams /var/www/html/
+cd /var/www/html
+ls
+cd BridgingDreams
+sudo chmod -R 777 /var/www/html/BridgingDreams/investor_Image
+sudo chmod -R 777 /var/www/html/BridgingDreams/entrepreneur_Image
+ls
+cd /etc/apache2/sites-available/
+ls
+nano 000-default.conf
+------------------------------------------------
+/BridgingDreams
+------------------------------------------------
+service apache2 restart
+service apache2 status
+------------------------------------------------
