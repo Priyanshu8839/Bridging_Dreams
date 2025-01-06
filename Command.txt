@@ -31,3 +31,4 @@ nano 000-default.conf
 service apache2 restart
 service apache2 status
 ------------------------------------------------
+AWS EC2 instance and using a steps to deploy
