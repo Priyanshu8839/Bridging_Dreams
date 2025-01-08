@@ -1,40 +1,28 @@
 <?php
-
 require 'Connection.php';
-session_start();
-
-if (isset($_POST["Sign"])) {
-    $Email = htmlspecialchars($_POST["Email"], ENT_QUOTES, 'UTF-8');
+if (isset($_POST["Sign"])){
+    $Email = $_POST["Email"];
     $Password = $_POST["Password"];
-
-    // Prepared statement to prevent SQL injection
-    $stmt = $con->prepare("SELECT * FROM entrepreneur WHERE Email = ?");
-    $stmt->bind_param("s", $Email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-
-        // Verify the hashed password
-        if (password_verify($Password, $row["Password"])) {
-            $_SESSION["login"] = true;
-            $_SESSION["id"] = $row["id"];
+$result = mysqli_query($con, "SELECT * FROM entrepreneur WHERE Email = '$Email'");
+$row = mysqli_fetch_assoc($result);
+if(mysqli_num_rows($result) > 0){
+        if ($Password == $row["Password"]){
+          $_SESSION["login"] = true;
+          $_SESSION["id"] = $row["id"];
+           echo "<script>
+            alert('Login Successful');
+            window.location.href='entrepreneur_index.php';
+            </script>";
+}
+            else{
+            echo "<script> alert('Wrong Password'); </script>";
+}}
+            else{
             echo "<script>
-                alert('Login Successful');
-                window.location.href='entrepreneur_index.php';
-                </script>";
-        } else {
-            echo "<script>alert('Wrong Password');</script>";
-        }
-    } else {
-        echo "<script>
             alert('User Not Registered');
             window.location.href='entrepreneur_login.php';
             </script>";
-    }
-
-    $stmt->close();
+}
 }
 ?>
 
